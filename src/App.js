@@ -3,6 +3,7 @@ import bridge from '@vkontakte/vk-bridge';
 import View from '@vkontakte/vkui/dist/components/View/View';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
 import '@vkontakte/vkui/dist/vkui.css';
+import { connect } from 'react-redux';
 
 import Home from './panels/Home';
 
@@ -22,6 +23,7 @@ const App = () => {
 		async function fetchData() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
+			console.log(user)
 			
 		}
 		fetchData();
@@ -39,5 +41,5 @@ const App = () => {
 	);
 }
 
-export default App;
+export default connect(null, null)(App);
 
