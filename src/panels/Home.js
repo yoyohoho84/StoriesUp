@@ -1,23 +1,12 @@
 import React, { Component, useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import bridge from "@vkontakte/vk-bridge";
 
 import VkButton from "../componnets/UI/Button";
-import StorieCard from "../componnets/organisms/StorieCard";
-import * as actions from '../store/actions';
-
-import {
-  Panel,
-  PanelHeader,
-  Div,
-  Avatar,
-  InfoRow,
-  HorizontalScroll,
-  File,
-} from "@vkontakte/vkui";
-import GroupCard from "../componnets/organisms/GroupCard";
+import * as actions from "../store/actions";
+import ChosenGroup from "../componnets/organisms/ChosenGroup";
 import { connect } from "react-redux";
+import StoriesSlider from "../componnets/organisms/StoriesSlider";
+import Layout from "../hocs/Layout/layout";
 
 class Home extends Component {
   state = {};
@@ -28,14 +17,9 @@ class Home extends Component {
   };
 
   render() {
-    const storiesItem = [1, 2, 3, 4, 5, 6, 7, 8].map((item, id) => {
-      return <StorieCard key={id} />;
-    });
-    return (
-      <Panel id={this.props.id}>
-        <PanelHeader>StoriesUp</PanelHeader>
 
-        <Div style={{ margin: 10 }}>
+    return (
+      <Layout panelTitle="StoriesUp" id={this.props.id}>
           <VkButton
             mode="commerce"
             size="xl"
@@ -45,9 +29,13 @@ class Home extends Component {
           />
 
           <h2>Добавление истории для группы:</h2>
-          <h2>{this.props.gropList}</h2>
 
-          {/* {fetchedGroup && <GroupCard fetchedGroup={fetchedGroup} />} */}
+          {this.props.groupName && this.props.groupImg && (
+            <ChosenGroup
+              groupName={this.props.groupName}
+              groupImg={this.props.groupImg}
+            />
+          )}
 
           <VkButton
             size="l"
@@ -56,22 +44,8 @@ class Home extends Component {
             data-to="persik"
             name="Сейчас v"
           />
-
-          <HorizontalScroll>
-            <Div
-              style={{
-                margin: 0,
-                padding: 0,
-                display: "flex",
-                alignItems: "start",
-                flexDirection: "row",
-              }}
-            >
-              {storiesItem}
-            </Div>
-          </HorizontalScroll>
-        </Div>
-      </Panel>
+          <StoriesSlider />
+      </Layout>
     );
   }
 }
@@ -89,16 +63,17 @@ Home.propTypes = {
   }),
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    gropList: state.fth.groupsList
-  }
-}
+    groupName: state.fth.groupName,
+    groupImg: state.fth.groupImg,
+  };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchGroups: () => dispatch(actions.fetchGroups())
-  }
-}
+    onFetchGroups: () => dispatch(actions.fetchGroups()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
