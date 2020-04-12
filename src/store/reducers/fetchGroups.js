@@ -8,9 +8,12 @@ const initialState = {
   errorAuth: null,
   errorLogin: null,
   loading: false,
-  groupsList: null,
+  groupsList: 'here 5 groups', 
   isSent: 'not sent'
 };
+
+// достать список групп клиента
+// 
 
 /* const fetchGroupStart = (state, action) => {
   return updateObject(state, { errorAuth: null, errorLogin: null, loading: true });

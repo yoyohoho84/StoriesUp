@@ -9,6 +9,8 @@ const VkButton = (props) => {
         size={props.size}
         stretched={props.stretched}
         onClick={props.handleClick}
+        /* className={`${btn} ${props.variant}`} */ 
+        // Danger Success Loading   'btn Success'
       >
         {props.name}
       </Button>

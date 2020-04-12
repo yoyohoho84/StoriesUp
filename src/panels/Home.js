@@ -5,6 +5,7 @@ import bridge from "@vkontakte/vk-bridge";
 
 import VkButton from "../componnets/UI/Button";
 import StorieCard from "../componnets/organisms/StorieCard";
+import * as actions from '../store/actions';
 
 import {
   Panel,
@@ -23,6 +24,7 @@ class Home extends Component {
 
   AddToCommunity = () => {
     console.log("something happen");
+    this.props.onFetchGroups();
   };
 
   render() {
@@ -38,11 +40,12 @@ class Home extends Component {
             mode="commerce"
             size="xl"
             stretched
-            onClick={this.AddToCommunity}
+            handleClick={this.AddToCommunity}
             name="Выбрать группу"
           />
 
           <h2>Добавление истории для группы:</h2>
+          <h2>{this.props.gropList}</h2>
 
           {/* {fetchedGroup && <GroupCard fetchedGroup={fetchedGroup} />} */}
 
@@ -86,4 +89,16 @@ Home.propTypes = {
   }),
 };
 
-export default connect(null, null)(Home);
+const mapStateToProps = state => {
+  return {
+    gropList: state.fth.groupsList
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchGroups: () => dispatch(actions.fetchGroups())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,4 +1,4 @@
 export {
   fetchGroups,
-} from './fetchGroup';
+} from './fetchGroups';
 

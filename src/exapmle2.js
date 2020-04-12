@@ -70,6 +70,27 @@ const Home = ({ id, go, fetchedUser }) => {
               }
             }
             fetchGroup();
+
+            // bridge.sendPromise("VKWebAppCallAPIMethod", {
+            // 	"method": "stories.getPhotoUploadServer",
+            // 	"request_id": "storiesup_test2",
+            // 	"params": {
+            // 		"v": "5.103",
+            // 		"access_token": tokenGroup,
+            // 		"filter": "admin",
+            // 		"add_to_news": "1",
+            // 		"link_text": "go_to ",
+            // 		"link_url": "https://vk.com/app_storiesup?w=wall-194109559_1"
+            // 	}})
+            // 	.then(res => {
+            // 		console.log("res getPhotoUploadServer", res);
+            // 		console.log("res getPhotoUploadServer URL", res.response.upload_url);
+            // 		urlUploadServer = res.response.upload_url;
+
+            // 	})
+            // 	.catch(err => {
+            // 		console.log("err getPhotoUploadServer", err);
+            // 	});
           })
           .catch((err) => {
             console.log("err tokenGroup", err);
