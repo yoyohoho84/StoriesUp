@@ -1,5 +1,11 @@
-.SelectModal {
-  width: 100px;
-  height: 300px;
-  border: 2px solid black;
+.modal-card {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-button {
+  width: 80px;
+  height: 30px;
 }

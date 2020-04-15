@@ -6,6 +6,15 @@ import { getGroupData, getGroupToken, getAuthToken, getUserGroupsList } from "..
 
 const SOME_URL = "";
 
+
+export const getCurrentGroup = (groupId) => {
+  console.log('GROUP IS CHOOSEN ====>', groupId)
+  return {
+    type: actionTypes.GET_CURRENT_GROUP,
+    groupId: groupId,
+  };
+};
+
 export const fetchGroupsSuccess = (groupName, groupImg) => {
   return {
     type: actionTypes.FETCH_GROUPS_SUCCESS,
@@ -41,15 +50,6 @@ export const fetchGroups =  (someData) => {
   console.log("FETCH STARTED");
   return async (dispatch) => {
     /* dispatch(authStart()); */
-     /*  AddToCommunity(); */
-
-
-     /* const responseAdd = await bridge.sendPromise("VKWebAppAddToCommunity", {});
-     const IdGroup = await responseAdd.group_id;
-     const groupRes = await getGroupToken(IdGroup);
-     const groupToken = await groupRes.access_token;
-     const group = await getGroupData(IdGroup, groupToken);
-     dispatch(fetchGroupsSuccess(group.response[0].name, group.response[0].photo_200)); */
      try {
       const authToken = await getAuthToken();
       dispatch(fetchAuthTokenSuccess(authToken));

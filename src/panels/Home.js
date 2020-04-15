@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
+import bridge from "@vkontakte/vk-bridge";
 
 import VkButton from "../componnets/UI/Button";
 import * as actions from "../store/actions";
@@ -7,7 +8,6 @@ import ChosenGroup from "../componnets/organisms/ChosenGroup";
 import { connect } from "react-redux";
 import StoriesSlider from "../componnets/organisms/StoriesSlider";
 import Layout from "../hocs/Layout/layout";
-import { Avatar } from "@vkontakte/vkui";
 
 class Home extends Component {
   state = {};
@@ -16,9 +16,12 @@ class Home extends Component {
     this.props.onFetchGroups();
   };
 
-  render() {
-   
+  openStoriesEditor = () => {
+    console.log("HEY I TRY TO OPEN STIRIES EDITOR !!!")
+    bridge.send("VKWebAppShowStoryBox", { "background_type" : "image", "url" : "https://sun9-65.userapi.com/c850136/v850136098/1b77eb/0YK6suXkY24.jpg" });
+  }
 
+  render() {
     return (
       <Layout panelTitle="StoriesUp" id={this.props.id}>
         <VkButton
@@ -31,14 +34,12 @@ class Home extends Component {
 
         <h2>Добавление истории для группы:</h2>
 
-        {/* {groupList} */}
-
-        {/*  {this.props.groupName && this.props.groupImg && (
+        {this.props.currentGroupData && (
           <ChosenGroup
-            groupName={this.props.groupName}
-            groupImg={this.props.groupImg}
+            groupName={this.props.currentGroupData[0].name}
+            groupImg={this.props.currentGroupData[0].photo_200}
           />
-        )} */}
+        )}
 
         <VkButton
           size="l"
@@ -47,7 +48,9 @@ class Home extends Component {
           data-to="persik"
           name="Сейчас v"
         />
-        <StoriesSlider />
+
+        <StoriesSlider openStoriesEditor={this.openStoriesEditor}/>
+
       </Layout>
     );
   }
@@ -68,8 +71,7 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    groupName: state.fth.groupName,
-    groupImg: state.fth.groupImg,
+    currentGroupData: state.fth.currentGroupData,
     groupData: state.fth.groupData,
   };
 };
@@ -77,6 +79,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchGroups: () => dispatch(actions.fetchGroups()),
+    onGetPhoto: () => dispatch(actions.getPhoto()),
   };
 };
 

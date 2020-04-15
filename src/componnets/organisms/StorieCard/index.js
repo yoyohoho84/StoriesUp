@@ -1,10 +1,11 @@
 import React from "react";
-import { Div, File } from "@vkontakte/vkui";
+import { Div, File, FormLayout } from "@vkontakte/vkui";
 
 const StoryCard = (props) => {
   return (
     <>
       <Div
+        onClick={props.handleClick}
         style={{
           marginLeft: 0,
           marginTop: 5,
@@ -19,12 +20,15 @@ const StoryCard = (props) => {
           alignItems: "center",
         }}
       >
-        <File
-          style={{ margin: 0, padding: 0, backgroundColor: "inherit" }}
-          accept=".jpg, .jpeg, .png, .gif"
-        >
-          Добавить историю
-        </File>
+        <FormLayout>
+          <File
+            style={{ margin: 0, padding: 0, backgroundColor: "inherit" }}
+            accept=".jpg, .jpeg, .png, .gif"
+            mode="overlay_secondary"
+          >
+            Добавить историю
+          </File>
+        </FormLayout>
       </Div>
     </>
   );

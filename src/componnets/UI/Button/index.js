@@ -5,11 +5,14 @@ const VkButton = (props) => {
   return (
     <>
       <Button
+        className={props.styles}
         mode={props.mode}
         size={props.size}
         stretched={props.stretched}
         onClick={props.handleClick}
-        /* className={`${btn} ${props.variant}`} */ 
+        align={props.align}
+        disabled={props.isDisabled}
+        /* className={`${btn} ${props.variant}`} */
         // Danger Success Loading   'btn Success'
       >
         {props.name}
