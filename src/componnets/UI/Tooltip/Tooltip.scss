@@ -1,0 +1,43 @@
+.tooltip {
+  width: 8px;
+  height: 8px;
+  background: rgba(29, 32, 34, 0.6);
+  border-radius: 0 6px 0 6px;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+  position: absolute;
+  left: 3.1em;
+  top: -3.6em;
+}
+
+.Delete-storie {
+  /*  position: absolute;
+  left: 3em;
+  top: -3em;
+  width: 1.1em;
+  height: 1.1em; */
+  cursor: pointer;
+}
+
+.Delete-storie:after,
+.Delete-storie:before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 0.7em;
+  background: grey;
+  display: block;
+  transform: rotate(45deg);
+  left: 50%;
+  top: 3px;
+}
+
+.Delete-storie:hover:after,
+.Delete-storie:hover:before {
+  background: white;
+}
+
+.Delete-storie:before {
+  transform: rotate(-45deg);
+}

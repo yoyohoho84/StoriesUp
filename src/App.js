@@ -28,7 +28,7 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log("HEY FROM UPDATE ===> ", this.state.activePanel);
+    
     if (prevProps.dataGroups !== this.props.dataGroups) {
       this.setState({
         activeModal: "select",

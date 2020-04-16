@@ -2,6 +2,7 @@ import React from "react";
 import { Div, File, FormLayout } from "@vkontakte/vkui";
 
 import "./StorieCard.scss";
+import Tooltip from '../../UI/Tooltip';
 
 const StoryCard = (props) => {
   let fileUrl = null;
@@ -11,20 +12,9 @@ const StoryCard = (props) => {
 
   return (
     <>
-      <Div className="storie-card" style={{ backgroundImage: 'url(' + fileUrl + ')' }}>
+      <Div id={props.id} className="storie-card" style={{ backgroundImage: 'url(' + fileUrl + ')' }}>
         <FormLayout>
-         {/*  <File
-            style={{
-              margin: 0,
-              padding: 0,
-              backgroundColor: "inherit",
-            }}
-            accept=".jpg, .jpeg, .png, .gif"
-            mode="overlay_secondary"
-            onChange={props.handleChange}
-          >
-            Добавить историю
-          </File> */}
+          <Tooltip storieId={props.id} handleClick={props.onDeleteStorie} variant='Delete-storie' />
         </FormLayout>
       </Div>
     </>

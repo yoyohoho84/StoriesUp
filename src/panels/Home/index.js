@@ -12,18 +12,30 @@ import Layout from "../../hocs/Layout/layout";
 import "./Home.scss";
 
 class Home extends Component {
-  state = {};
+  state = {
+    numOfStories: "вы еще ничего не добавили",
+  };
 
   AddToCommunity = () => {
     this.props.onFetchGroups();
   };
 
-  openStoriesEditor = () => {
+  /*  openStoriesEditor = () => {
     console.log("HEY I TRY TO OPEN STIRIES EDITOR !!!");
     bridge.send("VKWebAppShowStoryBox", {
       background_type: "image",
       url:
         "https://sun9-65.userapi.com/c850136/v850136098/1b77eb/0YK6suXkY24.jpg",
+    });
+  }; */
+
+  getStoriesData = (numOfStories) => {
+    let string = "вы еще ничего не добавили";
+    if (numOfStories) {
+      string = `${"В очередь"} ${numOfStories} ${"историй"}`;
+    }
+    this.setState({
+      numOfStories: string,
     });
   };
 
@@ -55,14 +67,17 @@ class Home extends Component {
           name="Сейчас v"
         />
 
-        <StoriesSlider openStoriesEditor={this.openStoriesEditor} />
+        <StoriesSlider
+          getStoriesData={this.getStoriesData}
+        />
 
         <Div className="btn-container">
           <VkButton
             mode="commerce"
             size="m"
             /*  handleClick={this.AddToCommunity} */
-            name="В очередь 1 историю"
+            /* name="В очередь 1 историю" */
+            name={this.state.numOfStories}
           />
 
           <VkButton
@@ -70,9 +85,8 @@ class Home extends Component {
             size="m"
             handleClick={this.props.go}
             name="Отложенные"
-            data-to='stories'
+            data-to="stories"
           />
-
         </Div>
       </Layout>
     );
