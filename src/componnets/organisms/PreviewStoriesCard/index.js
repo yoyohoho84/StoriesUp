@@ -1,9 +1,10 @@
 import React from 'react';
 
-const PreviewStoriesCard = () => {
+const PreviewStoriesCard = (props) => {
   return (
     <div>
-      Henlo !!
+      <img style={{width: '50px', height: '50px'}} src={props.photoUrl} />
+      <p>{props.date}</p>
     </div>
   );
 };

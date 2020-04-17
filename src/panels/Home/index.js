@@ -10,36 +10,66 @@ import { connect } from "react-redux";
 import StoriesSlider from "../../componnets/organisms/StoriesSlider";
 import Layout from "../../hocs/Layout/layout";
 import "./Home.scss";
+import DatePicker from "../../componnets/organisms/DatePicker";
+import { formatDate } from "../../utils/formatDate";
 
 class Home extends Component {
   state = {
     numOfStories: "вы еще ничего не добавили",
+    dataStories: {stories: [], date: ''},
   };
 
   AddToCommunity = () => {
     this.props.onFetchGroups();
   };
 
-  /*  openStoriesEditor = () => {
-    console.log("HEY I TRY TO OPEN STIRIES EDITOR !!!");
-    bridge.send("VKWebAppShowStoryBox", {
-      background_type: "image",
-      url:
-        "https://sun9-65.userapi.com/c850136/v850136098/1b77eb/0YK6suXkY24.jpg",
-    });
-  }; */
+  componentDidUpdate() {
+    console.log("HEY FROM HOME ===>", this.state);
+  }
 
-  getStoriesData = (numOfStories) => {
+  fetchStories = () => {
+    this.props.onFetchDelayStories(this.state.dataStories);
+  };
+
+  fetchDate = (date) => {
+    const newDate = formatDate(date);
+    console.log("HEY FROM DATE  ====>", newDate);
+    this.setState((prevState) => ({
+      ...prevState,
+      dataStories: {
+        ...prevState.dataStories,
+        date: newDate,
+      },
+    }));
+  };
+
+  getStoriesData = (data) => {
     let string = "вы еще ничего не добавили";
-    if (numOfStories) {
-      string = `${"В очередь"} ${numOfStories} ${"историй"}`;
+    if (data) {
+      string = `${"В очередь"} ${data.length} ${"историй"}`;
     }
-    this.setState({
+    this.setState((prevState) => ({
+      ...prevState,
       numOfStories: string,
-    });
+      dataStories: {
+        ...prevState.dataStories,
+        stories: data,
+      },
+    }));
   };
 
   render() {
+    let btnInQue = null;
+    if (this.state.dataStories.stories.length > 0) {
+      btnInQue = (
+        <VkButton
+          mode="commerce"
+          size="m"
+          handleClick={this.fetchStories}
+          name={this.state.numOfStories}
+        />
+      );
+    }
     return (
       <Layout panelTitle="StoriesUp" id={this.props.id}>
         <VkButton
@@ -59,26 +89,12 @@ class Home extends Component {
           />
         )}
 
-        <VkButton
-          size="l"
-          level="2"
-          onClick={this.props.go}
-          data-to="persik"
-          name="Сейчас v"
-        />
+        <DatePicker fetchDate={this.fetchDate} />
 
-        <StoriesSlider
-          getStoriesData={this.getStoriesData}
-        />
+        <StoriesSlider getStoriesData={this.getStoriesData} />
 
         <Div className="btn-container">
-          <VkButton
-            mode="commerce"
-            size="m"
-            /*  handleClick={this.AddToCommunity} */
-            /* name="В очередь 1 историю" */
-            name={this.state.numOfStories}
-          />
+          {btnInQue}
 
           <VkButton
             mode="commerce"
@@ -110,13 +126,15 @@ const mapStateToProps = (state) => {
   return {
     currentGroupData: state.fth.currentGroupData,
     groupData: state.fth.groupData,
+    delayStoriesList: state.fst.delayStoriesList,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onFetchGroups: () => dispatch(actions.fetchGroups()),
-    onGetPhoto: () => dispatch(actions.getPhoto()),
+    onFetchDelayStories: (storiesData) =>
+      dispatch(actions.fetchDelayStories(storiesData)),
   };
 };
 

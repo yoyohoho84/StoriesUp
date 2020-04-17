@@ -14,18 +14,25 @@ class Stories extends Component {
   state = {};
 
   render() {
+    let renderStories = null;
+    if (this.props.delayStoriesList) {
+      renderStories = this.props.delayStoriesList.stories.map((item) => {
+        return <PreviewStoriesCard date={this.props.delayStoriesList.date} photoUrl={item.photoUrl} />;
+      });
+    }
+
     return (
       <Layout panelTitle="Отложенные" id={this.props.id}>
         <InfoRow>Истории группы</InfoRow>
 
-        <PreviewStoriesCard />
+        {renderStories}
 
         <VkButton
           mode="commerce"
           size="m"
           handleClick={this.props.go}
           name="Отложенные"
-          data-to='home'
+          data-to="home"
         />
       </Layout>
     );
@@ -33,11 +40,13 @@ class Stories extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    delayStoriesList: state.fst.delayStoriesList,
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
+/* const mapDispatchToProps = (dispatch) => {
   return {};
-};
+}; */
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stories);
+export default connect(mapStateToProps, null)(Stories);

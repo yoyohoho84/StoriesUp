@@ -4,6 +4,6 @@ export {
 } from './fetchGroups';
 
 export {
-  getPhoto
+  fetchDelayStories
 } from './fetchStories';
 

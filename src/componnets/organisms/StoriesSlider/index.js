@@ -16,7 +16,7 @@ class StoriesSlider extends Component {
     console.log("HEY FROM UPDATE IN STORIE===> ", prevState.fileData);
     console.log("HEY FROM UPDATE IN STORIE===> ", this.state.fileData);
     if (this.state.fileData !== prevState.fileData) {
-      this.props.getStoriesData(this.state.fileData.length);
+      this.props.getStoriesData(this.state.fileData);
     }
   }
 
