@@ -12,6 +12,8 @@ const VkButton = (props) => {
         onClick={props.handleClick}
         align={props.align}
         disabled={props.isDisabled}
+        id={props.id}
+        data-to={props['data-to']}
         /* className={`${btn} ${props.variant}`} */
         // Danger Success Loading   'btn Success'
       >

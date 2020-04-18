@@ -1,8 +1,27 @@
-
 .slider-wrapper {
   margin: 0;
   padding: 0;
   display: flex;
   align-items: start;
   flex-direction: row;
+}
+
+.storie-card__img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.storie-card__choose {
+  box-sizing: border-box;
+  margin: 5px 5px 5px 0;
+  padding: 0;
+  width: 80px;
+  height: 140px;
+  background: #fff;
+  border: 2px dashed #6290ca;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

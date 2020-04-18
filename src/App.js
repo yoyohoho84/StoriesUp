@@ -6,6 +6,7 @@ import "@vkontakte/vkui/dist/vkui.css";
 import { connect } from "react-redux";
 
 import Home from "./panels/Home";
+import Stories from "./panels/Stories";
 import {
   ModalCard,
   ModalRoot,
@@ -27,6 +28,7 @@ class App extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    
     if (prevProps.dataGroups !== this.props.dataGroups) {
       this.setState({
         activeModal: "select",
@@ -60,6 +62,7 @@ class App extends Component {
   };
 
   go = (e) => {
+    console.log("HEY FROM CLICK", e.currentTarget.dataset.to);
     this.setState({
       activePanel: e.currentTarget.dataset.to,
     });
@@ -76,8 +79,8 @@ class App extends Component {
     this.props.onGroupChoose(this.state.groupId);
     this.closeModal();
     this.setState({
-      groupId: null
-    })
+      groupId: null,
+    });
   };
 
   render() {
@@ -120,6 +123,7 @@ class App extends Component {
             fetchedUser={this.state.fetchedUser}
             go={this.go}
           />
+          <Stories id="stories" go={this.go} />
         </View>
       </ConfigProvider>
     );
