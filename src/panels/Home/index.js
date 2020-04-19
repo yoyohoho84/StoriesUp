@@ -16,7 +16,7 @@ import { formatDate } from "../../utils/formatDate";
 class Home extends Component {
   state = {
     numOfStories: "вы еще ничего не добавили",
-    dataStories: {stories: [], date: ''},
+    dataStories: { stories: [], date: null },
   };
 
   AddToCommunity = () => {
@@ -28,7 +28,18 @@ class Home extends Component {
   }
 
   fetchStories = () => {
+    /*   if(this.state.dataStories.stories && this.state.dataStories.date) { */
     this.props.onFetchDelayStories(this.state.dataStories);
+    this.setState((prevState) => ({
+      ...prevState,
+      dataStories: {
+        ...prevState.dataStories,
+        date: null,
+        stories: [],
+      },
+    }));
+    /*  } */
+    console.log("IT S MISTAKE ===>");
   };
 
   fetchDate = (date) => {
@@ -92,10 +103,9 @@ class Home extends Component {
         <DatePicker fetchDate={this.fetchDate} />
 
         <StoriesSlider getStoriesData={this.getStoriesData} />
+        {btnInQue}
 
         <Div className="btn-container">
-          {btnInQue}
-
           <VkButton
             mode="commerce"
             size="m"

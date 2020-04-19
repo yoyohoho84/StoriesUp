@@ -26,19 +26,19 @@ class StoriesSlider extends Component {
     let reader = new FileReader();
     let file = e.target.files[0];
     let fileObj = {};
-
-    reader.onloadend = () => {
-      let uniqueId = uuidv4();
-      let url = reader.result;
-      fileObj = { id: uniqueId, photoUrl: url };
-      this.setState((prevState) => ({
-        file: file,
-        imagePreviewUrl: reader.result,
-        fileData: prevState.fileData.concat(fileObj),
-      }));
-    };
-
-    reader.readAsDataURL(file);
+    if (file) {
+      reader.onloadend = () => {
+        let uniqueId = uuidv4();
+        let url = reader.result;
+        fileObj = { id: uniqueId, photoUrl: url };
+        this.setState((prevState) => ({
+          file: file,
+          imagePreviewUrl: reader.result,
+          fileData: prevState.fileData.concat(fileObj),
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   onDeleteStorie = (storieId) => {

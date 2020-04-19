@@ -8,7 +8,6 @@ class DatePicker extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    /* console.log('HEY FROM UPDATE CALENDAR ===>', this.state.date); */
     if(prevState.date !== this.state.date) {
       this.props.fetchDate(this.state.date)
     }
@@ -27,6 +26,7 @@ class DatePicker extends Component {
           disableClock={true}
           required={true}
           calendarClassName="calendar"
+          minDate={new Date()}
         />
       </div>
     );
